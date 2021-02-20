@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="pt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <Search />
+          </div>
+        </div>
+        <div class="col-12">
+          <div>
+            <ListGroup />
+          </div>
+        </div>
+        <div class="col-12">
+          <div>
+            <Modal />
+          </div>
+        </div>
+        <div class="col-12">
+          <div>
+            <Pagination />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Search from '@/components/Search';
+import ListGroup from '@/components/ListGroup';
+import Modal from '@/components/Modal';
+import Pagination from '@/components/Pagination';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Search,
+    Modal,
+    ListGroup,
+    Pagination,
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
