@@ -15,7 +15,3 @@ export default {
   name: "Pagination"
 }
 </script>
-
-<style lang="sass">
-
-</style>

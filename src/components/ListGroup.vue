@@ -1,19 +1,28 @@
 <template>
-  <ul class="list-group">
-    <li class="list-group-item active" aria-current="true">An active item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-    <li class="list-group-item">A fourth item</li>
-    <li class="list-group-item">And a fifth one</li>
-  </ul>
+  <div>
+    <ul
+        v-for="(pack, index) in packages"
+        :key="index"
+        class="list-group"
+    >
+      <li class="list-group-item">
+        <div>Name: <strong>{{ pack.name }}</strong></div>
+        Type: <span class="badge bg-success mx-3"> {{ pack.type }}</span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'ListGroup'
+  name: 'ListGroup',
+  props: {
+    packages: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  }
 };
 </script>
-
-<style scoped>
-
-</style>

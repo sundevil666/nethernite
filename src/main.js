@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from './store'
+import store from './vuex/store'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
+import './assets/styles/main.scss'
 
 Vue.config.productionTip = false
 
 new Vue({
-  store,
-  render: h => h(App)
+  render: h => h(App),
+  store
 }).$mount('#app')
