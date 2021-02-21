@@ -6,14 +6,28 @@
         class="list-group"
     >
       <li class="list-group-item">
-        <div>Name: <strong>{{ pack.name }}</strong></div>
-        Type: <span class="badge bg-success mx-3"> {{ pack.type }}</span>
+        <div>
+          Name:
+          <strong
+              class="pointer"
+              data-toggle="modal"
+              data-target="#modal"
+              @click="selectedItem(pack)"
+          >
+            {{ pack.name }}
+          </strong>
+        </div>
+        <div>
+          Type: <span class="badge bg-success mx-3"> {{ pack.type }}</span>
+        </div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   name: 'ListGroup',
   props: {
@@ -22,6 +36,14 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    ...mapActions([
+       'GET_SELECTED_ITEM'
+    ]),
+    selectedItem (val) {
+      this.GET_SELECTED_ITEM(val)
     }
   }
 };

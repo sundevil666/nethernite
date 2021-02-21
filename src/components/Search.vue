@@ -1,5 +1,5 @@
 <template>
-  <label class="form-group">
+  <label class="form-group d-block w-100">
     <input
         v-model="searchVal"
         class="form-control"

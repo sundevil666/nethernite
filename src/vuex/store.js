@@ -7,6 +7,7 @@ let store = new Vuex.Store({
     state: {
         packages: [],
         searchVal: '',
+        selectedItem: {},
     },
     mutations: {
         SET_PACKAGES_TO_STATE: (state, packages) => {
@@ -15,16 +16,17 @@ let store = new Vuex.Store({
         SET_SEARCH_VAL: (state, value) => {
             state.searchVal = value
         },
+        SET_SELECTED_ITEM: (state, value) => {
+            state.selectedItem = value
+        }
     },
     actions: {
         GET_PACKAGES_FROM_API({commit}) {
             return fetch('https://data.jsdelivr.com/v1/stats/packages')
                 .then(response => {
-                    console.log('1', response);
                     return response.json()
                 })
                 .then(data => {
-                    console.log('2', data);
                     commit('SET_PACKAGES_TO_STATE', data)
                 })
                 .catch(error => {
@@ -34,6 +36,9 @@ let store = new Vuex.Store({
         },
         GET_SEARCH_VAL({commit}, value) {
             commit('SET_SEARCH_VAL', value)
+        },
+        GET_SELECTED_ITEM({commit}, value) {
+            commit('SET_SELECTED_ITEM', value)
         }
     },
     getters: {
@@ -42,7 +47,10 @@ let store = new Vuex.Store({
         },
         SEARCH_VAL(state) {
             return state.searchVal
-        }
+        },
+        SELECTED_ITEM(state) {
+            return state.selectedItem
+        },
     }
 });
 

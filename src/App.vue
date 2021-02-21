@@ -2,23 +2,21 @@
   <div id="app" class="pt-4">
     <div class="container">
       <div class="row">
+<!--        Search-->
         <div class="col-12">
           <div>
             <Search />
           </div>
         </div>
+<!--        Modal-->
         <div class="col-12">
-          <div>
-            <ListGroup
-                :packages="packages"
-            />
-          </div>
+          <Modal />
         </div>
+<!--        ListGroup-->
         <div class="col-12">
-          <div>
-            <Modal />
-          </div>
+          <ListGroup :packages="packages" />
         </div>
+<!--        Pagination-->
         <div class="col-12">
           <div>
             <Pagination />
@@ -66,12 +64,11 @@ export default {
         'GET_PACKAGES_FROM_API'
     ]),
     sortPackagesBySearchVal (val) {
-      this.packages = this.PACKAGES.filter(item => item.name.includes(val))
+      this.packages = this.PACKAGES.filter(item => item.name.includes(val.toLowerCase()))
     }
   },
   async mounted () {
-    const pack = await this.GET_PACKAGES_FROM_API()
-    console.log(pack);
+    await this.GET_PACKAGES_FROM_API()
     this.packages = this.PACKAGES
   },
 }
