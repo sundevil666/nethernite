@@ -14,12 +14,30 @@
         </div>
 <!--        ListGroup-->
         <div class="col-12">
-          <ListGroup :packages="packages" />
+          <ListGroup :packages="items" />
         </div>
 <!--        Pagination-->
         <div class="col-12">
           <div>
-            <Pagination />
+            <nav
+                v-if="items.length > pageSize"
+                class="pt-4"
+            >
+              <Paginate
+                  v-model="page"
+                  :page-count="pageCount"
+                  :prev-text="'Назад'"
+                  :next-text="'Вперед'"
+                  :container-class="'pagination'"
+                  :page-class="'page-item'"
+                  :page-link-class="'page-link'"
+                  :prev-class="'page-item'"
+                  :prev-link-class="'page-link'"
+                  :next-class="'page-item'"
+                  :next-link-class="'page-link'"
+                  :click-handler="pageChangeHandler"
+              />
+            </nav>
           </div>
         </div>
       </div>
@@ -31,12 +49,13 @@
 import Search from '@/components/Search';
 import ListGroup from '@/components/ListGroup';
 import Modal from '@/components/Modal';
-import Pagination from '@/components/Pagination';
+import paginationMixin from './mixins/pagination.mixin'
 
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'App',
+  mixins: [paginationMixin],
   data: () => {
     return {
       packages: []
@@ -46,7 +65,6 @@ export default {
     Search,
     Modal,
     ListGroup,
-    Pagination,
   },
   computed: {
     ...mapGetters([
@@ -64,12 +82,12 @@ export default {
         'GET_PACKAGES_FROM_API'
     ]),
     sortPackagesBySearchVal (val) {
-      this.packages = this.PACKAGES.filter(item => item.name.includes(val.toLowerCase()))
-    }
+      this.packages = this.setupPagination(this.PACKAGES.filter(item => item.name.includes(val.toLowerCase())))
+    },
   },
   async mounted () {
     await this.GET_PACKAGES_FROM_API()
-    this.packages = this.PACKAGES
+    this.packages = await this.setupPagination(this.PACKAGES)
   },
 }
 </script>
