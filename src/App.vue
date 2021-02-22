@@ -20,7 +20,7 @@
         <div class="col-12">
           <div>
             <nav
-                v-if="items.length > pageSize"
+                v-if="items.length >= pageSize"
                 class="pt-4"
             >
               <Paginate
