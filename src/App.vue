@@ -2,27 +2,24 @@
   <div id="app" class="pt-4">
     <div class="container">
       <div class="row">
-<!--        Search-->
+        <!--        Search-->
         <div class="col-12">
           <div>
             <Search />
           </div>
         </div>
-<!--        Modal-->
+        <!--        Modal-->
         <div class="col-12">
           <Modal />
         </div>
-<!--        ListGroup-->
+        <!--        ListGroup-->
         <div class="col-12">
           <ListGroup :packages="items" />
         </div>
-<!--        Pagination-->
+        <!--        Pagination-->
         <div class="col-12">
           <div>
-            <nav
-                v-if="items.length >= pageSize"
-                class="pt-4"
-            >
+            <nav class="pt-4">
               <Paginate
                   v-model="page"
                   :page-count="pageCount"
@@ -49,9 +46,10 @@
 import Search from '@/components/Search';
 import ListGroup from '@/components/ListGroup';
 import Modal from '@/components/Modal';
-import paginationMixin from './mixins/pagination.mixin'
+import paginationMixin from './mixins/pagination.mixin';
 
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
+import algoliasearch from 'algoliasearch/lite';
 
 export default {
   name: 'App',
@@ -59,7 +57,7 @@ export default {
   data: () => {
     return {
       packages: []
-    }
+    };
   },
   components: {
     Search,
@@ -68,26 +66,34 @@ export default {
   },
   computed: {
     ...mapGetters([
-        'SEARCH_VAL',
-        'PACKAGES',
+      'SEARCH_VAL',
+      'PACKAGES',
     ])
   },
   watch: {
-    SEARCH_VAL() {
-      this.sortPackagesBySearchVal(this.SEARCH_VAL)
+    SEARCH_VAL () {
+      this.sortPackagesBySearchVal(this.SEARCH_VAL);
     },
   },
   methods: {
     ...mapActions([
-        'GET_PACKAGES_FROM_API'
+      'GET_PACKAGES_FROM_API'
     ]),
     sortPackagesBySearchVal (val) {
-      this.packages = this.setupPagination(this.PACKAGES.filter(item => item.name.includes(val.toLowerCase())))
+      const algolia = algoliasearch('OFCNCOG2CU', 'f54e21fa3a2a0160595bb058179bfb1e', {
+        protocol: 'https:'
+      });
+      const index = algolia.initIndex('npm-search');
+      index.search(val).then(({ hits }) => {
+        this.packages = hits;
+      });
+      this.packages = this.setupPagination(this.PACKAGES.filter(item => item.name.includes(val.toLowerCase())));
     },
   },
   async mounted () {
-    await this.GET_PACKAGES_FROM_API()
-    this.packages = await this.setupPagination(this.PACKAGES)
+    await this.GET_PACKAGES_FROM_API();
+    this.packages = await this.setupPagination(this.PACKAGES);
+
   },
-}
+};
 </script>
