@@ -19,7 +19,14 @@
         </div>
         <div class="d-flex">
           <span>description:</span>
-          <span class="badge bg-success mx-3"> {{ pack.description }}</span>
+          <span
+
+              v-if="pack.description"
+              class="badge bg-success mx-3"
+          >
+            {{ pack.description }}
+          </span>
+          <span v-else> Отсутсвует</span>
         </div>
       </li>
     </ul>

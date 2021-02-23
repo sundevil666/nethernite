@@ -3,6 +3,16 @@ body {
     color: #333;
   }
 }
+#app .wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto minmax(auto, 1fr) auto;
+  height: 100vh;
+}
+main {
+  height: 100%;
+  overflow-y: auto;
+}
 .pointer {
   cursor: pointer;
 }

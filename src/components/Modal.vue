@@ -14,9 +14,15 @@
           </div>
           <div class="modal-body">
             <div>name: <strong>{{ SELECTED_ITEM.name }}</strong></div>
-            <div>description: <strong>{{ SELECTED_ITEM.description }}</strong></div>
-            <div>repository: <strong>{{ SELECTED_ITEM.repository.url }}</strong></div>
-            <div>user: <strong>{{ SELECTED_ITEM.repository.user }}</strong></div>
+            <div>
+              description: <strong>{{ SELECTED_ITEM.description }}</strong>
+            </div>
+            <div>
+              repository: <strong>{{ SELECTED_ITEM.repository.url }}</strong>
+            </div>
+            <div>
+              user: <strong>{{ SELECTED_ITEM.repository.user }}</strong>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

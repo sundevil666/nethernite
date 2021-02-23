@@ -8,7 +8,7 @@ let store = new Vuex.Store({
   state: {
     packages: [],
     searchVal: '',
-    selectedItem: {},
+    selectedItem: null,
     nbPages: 0,
     hitsPerPage: 10,
   },
