@@ -6,3 +6,7 @@ body {
 .pointer {
   cursor: pointer;
 }
+.bg-success {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

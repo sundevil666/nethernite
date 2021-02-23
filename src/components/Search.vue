@@ -10,21 +10,29 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: "Search",
-  data: () => {
-    return {
-      searchVal: '',
+  computed: {
+    ...mapGetters([
+        'SEARCH_VAL',
+    ]),
+    searchVal: {
+      get() {
+        return this.SEARCH_VAL
+      },
+      set(value) {
+        this.SET_SEARCH_VAL(value)
+      }
     }
   },
   methods: {
-    ...mapActions([
-       'GET_SEARCH_VAL'
+    ...mapMutations([
+       'SET_SEARCH_VAL'
     ]),
     search(val) {
-      this.GET_SEARCH_VAL(val)
+      this.SET_SEARCH_VAL(val)
     }
   }
 }

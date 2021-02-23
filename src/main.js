@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Paginate from 'vuejs-paginate'
-import store from './vuex/store'
+import store from './store/index'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'

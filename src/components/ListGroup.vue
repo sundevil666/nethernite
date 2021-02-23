@@ -17,8 +17,9 @@
             {{ pack.name }}
           </strong>
         </div>
-        <div>
-          Type: <span class="badge bg-success mx-3"> {{ pack.type }}</span>
+        <div class="d-flex">
+          <span>description:</span>
+          <span class="badge bg-success mx-3"> {{ pack.description }}</span>
         </div>
       </li>
     </ul>
@@ -26,24 +27,25 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'ListGroup',
   props: {
     packages: {
       type: Array,
+      required: true,
       default() {
         return []
       }
     }
   },
   methods: {
-    ...mapActions([
-       'GET_SELECTED_ITEM'
+    ...mapMutations([
+       'SET_SELECTED_ITEM'
     ]),
     selectedItem (val) {
-      this.GET_SELECTED_ITEM(val)
+      this.SET_SELECTED_ITEM(val)
     }
   }
 };
